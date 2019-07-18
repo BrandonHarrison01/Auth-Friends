@@ -30,13 +30,14 @@ const FormikLoginForm = withFormik({
         }
     },
 
-    handleSubmit: (values) => {
+    handleSubmit: (values, formikBag) => {
         console.log(values);
         axios
             .post('http://localhost:5000/api/login', values)
             .then(res => {
                 console.log(res);
-                localStorage.setItem('token', res.data.payload)
+                localStorage.setItem('token', res.data.payload);
+                formikBag.props.history.push('/friends-list')
             })
             .catch(err => {console.log(err)})
     }
