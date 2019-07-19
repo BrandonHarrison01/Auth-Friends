@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function FriendsList({ history }) {
+import AddFriend from './AddFriend'
+
+function FriendsList(props) {
     
   const [friends, setFriends] = useState([]);
 
@@ -20,12 +22,14 @@ function FriendsList({ history }) {
                 })
                 .catch(err => console.log(err))
         }
-    }, [])
+    }, [ friends ])
 
     const logout = () => {
         localStorage.removeItem('token');
-        history.push('/')
+        props.history.push('/')
     }
+
+    console.log('name', props)
 
     return(
         <div>
@@ -40,6 +44,7 @@ function FriendsList({ history }) {
             <button 
                 onClick={() => logout()}>Logout
             </button>
+            <AddFriend />
         </div>
     )
 }

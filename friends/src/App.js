@@ -7,12 +7,11 @@ import FriendsList from './components/FreindsList';
 
 function App() {
 
-  const PrivateRoute = ({ component: Component, ...rest }) => (
+  const PrivateRoute = ({ component: Component, ...spread }) => (
     <Route 
-      {...rest} 
       render={props =>
         localStorage.getItem('token') ? (
-          <Component {...props} />
+          <Component {...props} {...spread} />
         ) : (
           <Redirect to='/' />
         )
