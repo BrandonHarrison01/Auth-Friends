@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { axiosWithAuth } from '../axiosAuth'
 
 import AddFriend from './AddFriend'
 
@@ -10,12 +10,8 @@ function FriendsList(props) {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if(token) {
-            axios
-                .get('http://localhost:5000/api/friends', {
-                  headers: {
-                    authorization: `${token}`
-                  }
-                })
+            axiosWithAuth()
+                .get('http://localhost:5000/api/friends')
                 .then(res => {
                     console.log(res);
                     setFriends(res.data)
